@@ -17,7 +17,7 @@ Our custom interfaces for defining the workflows of extraction, transforming, an
 Writing a new ETL job will require the following:
 
 * A config file specifying what kind of extraction and loaded processes will be used
-* A callabe function that will accept all the extracted datasources and return one or more datasets
+* A callable function that will accept all the extracted datasources and return one or more datasets
 
 We'll interact with our tooling using a simple command line interface (CLI)
 ```
@@ -35,7 +35,7 @@ extract:
         location: https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv
 
 load:
-    procssed_data:
+    processed_data:
         type: CsvLoader
         location: output/iris_melt.csv
 
@@ -45,7 +45,7 @@ The dataset names (e.g. "iris" and "processed_data" below) will be the argument 
 So the related `Transformer` of this ETL job should be ready to accept `iris` as an argument. Similarily, the standard `CsvLoader` will be
 ready to accept the `processed_data` argument.
 
-## Data Intefaces
+## Data Interfaces
 Data being passed between steps should one of the following:
 
 * `Path`
