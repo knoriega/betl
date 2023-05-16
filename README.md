@@ -38,7 +38,6 @@ load:
     processed_data:
         type: CsvLoader
         location: output/iris_melt.csv
-
 ```
 
 The dataset names (e.g. "iris" above) will be the argument names passed to the next step of an ETL job. 

@@ -28,3 +28,9 @@ class CsvLoader:
 factory: ObjectFactory[Loader] = ObjectFactory()
 factory.register_builder(CsvLoader.__name__, CsvLoader)
 
+def build(dataset_name: str, config: dict) -> Loader:
+    """Convenient way to build loader from config"""
+    _config = config.copy()
+    _type = _config.pop("type")
+    return factory.build(_type, dataset_name=dataset_name, **_config)
+

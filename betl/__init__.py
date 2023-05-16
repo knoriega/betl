@@ -1,5 +1,5 @@
 from betl.core import Transformer
-from betl.extractor import Extractor
+from betl.extractors import Extractor
 from betl.loaders import Loader
 
 

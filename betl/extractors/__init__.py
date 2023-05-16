@@ -23,3 +23,9 @@ class CsvExtractor:
 factory: ObjectFactory[Extractor] = ObjectFactory()
 factory.register_builder(CsvExtractor.__name__, CsvExtractor)
 
+def build(dataset_name: str, config: dict) -> Extractor:
+    """Convenient way to build extractor from config"""
+    _config = config.copy()
+    _type = _config.pop("type")
+    return factory.build(_type, dataset_name=dataset_name, **_config)
+
