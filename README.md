@@ -1,6 +1,6 @@
 # betl
-
 **B**etter **ETL**
+_like "beatle"_
 
 An intial take on writing the skeleton of a small "Extract-Transform-Load" (ETL) application that is able to:
 
@@ -8,7 +8,7 @@ An intial take on writing the skeleton of a small "Extract-Transform-Load" (ETL)
 * Perform some amount of processing on that data
 * Load the processed data to various locations using standard custom workflows
 
-Our custom interfaces for defining the workflows of extraction, transforming, and loading data are:
+Our interfaces for defining the workflows of extraction, transforming, and loading data are:
 * `Extractor`
 * `Transformer`
 * `Loader`
@@ -16,8 +16,8 @@ Our custom interfaces for defining the workflows of extraction, transforming, an
 ## Usage
 Writing a new ETL job will require the following:
 
-* A config file specifying what kind of extraction and loaded processes will be used
-* A callable function that will accept all the extracted datasources and return one or more datasets
+* A config file specifying what kind of extraction and loader processes will be used
+* A callable (e.g function, method, etc.) that will accept all the extracted datasources and return one or more datasets
 
 We'll interact with our tooling using a simple command line interface (CLI)
 ```
@@ -41,9 +41,8 @@ load:
 
 ```
 
-The dataset names (e.g. "iris" and "processed_data" below) will be the argument names passed to the next step of an ETL job. 
-So the related `Transformer` of this ETL job should be ready to accept `iris` as an argument. Similarily, the standard `CsvLoader` will be
-ready to accept the `processed_data` argument.
+The dataset names (e.g. "iris" above) will be the argument names passed to the next step of an ETL job. 
+So the related `Transformer` of this ETL job should be ready to accept `iris` as an argument. 
 
 ## Data Interfaces
 Data being passed between steps should one of the following:

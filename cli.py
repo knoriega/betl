@@ -2,11 +2,12 @@ from importlib import import_module
 
 import click
 
-import betl.extractor
 import betl.loaders
 from betl import main
 from betl.core import JobPackage
 from betl.jobs import AVAILABLE_JOBS
+from betl.extractors import factory as extractor_factory
+from betl.loaders import factory as loader_factory
 
 @click.command()
 @click.option(
@@ -20,17 +21,17 @@ def cli(job: str) -> None:
     job_config = job_package.config
     
     extractors = []
-    for dataset_name, extractor_config in job_config["extract"].items():
+    for name, extractor_config in job_config["extract"].items():
         _extractor_config = extractor_config.copy()
         _type = _extractor_config.pop("type")  
-        extractor = getattr(betl.extractor, _type)(dataset_name=dataset_name, **_extractor_config)
+        extractor = extractor_factory.build(_type, dataset_name=name, **_extractor_config)
         extractors.append(extractor)
         
     loaders = []
-    for _, loader_config in job_config["load"].items():
+    for name, loader_config in job_config["load"].items():
         _loader_config = loader_config.copy()
         _type = _loader_config.pop("type")
-        loader = getattr(betl.loaders, _type)(**_loader_config)
+        loader = loader_factory.build(_type, dataset_name=name, **_loader_config)
         loaders.append(loader)
 
     main(

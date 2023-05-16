@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from betl.core import DataStep
+from betl.core import DataStep, ObjectFactory
 
 import pandas as pd
 from attrs import define
@@ -19,3 +19,7 @@ class CsvExtractor:
 
     def extract(self) -> pd.DataFrame:
         return pd.read_csv(self.location)
+
+factory: ObjectFactory[Extractor] = ObjectFactory()
+factory.register_builder(CsvExtractor.__name__, CsvExtractor)
+
